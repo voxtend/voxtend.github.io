@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speaking Longer Than Learned: Training-Free Long-Form Generation for Full-Stream Text-to-Speech</title>
+<meta name="description" content="Audio samples for Speaking Longer Than Learned, a training-free method for long-form generation with full-stream text-to-speech.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f6;
+  --paper:#ffffff;
+  --ink:#1b2430;
+  --ink-2:#5d6975;
+  --line:#d6dcde;
+  --teal:#0f5c75;
+  --teal-soft:#e3eef2;
+  --gold:#a8641c;
+  --gold-soft:#f6ecdc;
+  --max:980px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:"Public Sans",system-ui,sans-serif;
+  font-size:17px;line-height:1.6;color:var(--ink);background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* Header */
+header{background:var(--paper);border-bottom:1px solid var(--line)}
+.head{padding:72px 24px 48px;text-align:center}
+.venue{color:var(--ink-2);font-size:15px;margin-bottom:20px}
+h1{
+  font-family:"Newsreader",Georgia,serif;font-weight:500;
+  font-size:clamp(30px,4.6vw,48px);line-height:1.12;letter-spacing:-0.012em;
+  max-width:880px;margin:0 auto 12px;
+}
+h1 .sub{display:block;font-weight:400;font-size:0.62em;color:var(--ink-2);margin-top:14px;line-height:1.3;font-style:italic}
+.authors{margin-top:28px;font-size:17px;line-height:1.8}
+.authors sup{font-size:11px;color:var(--ink-2);margin-left:1px}
+.affil{color:var(--ink-2);font-size:15px;margin-top:6px}
+.links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.links a{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;
+  border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-weight:500;font-size:15px;
+}
+.links a:hover{background:var(--ink);color:#fff}
+.links a.muted{border-color:var(--line);color:var(--ink-2);pointer-events:none}
+.links svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Sections */
+section{padding:52px 0}
+section + section{border-top:1px solid var(--line)}
+h2{
+  font-family:"Newsreader",Georgia,serif;font-weight:500;font-size:30px;line-height:1.2;
+  letter-spacing:-0.01em;margin-bottom:18px;
+}
+h3{font-family:"Newsreader",Georgia,serif;font-weight:500;font-size:22px;line-height:1.25;letter-spacing:-0.005em}
+.prose{max-width:720px}
+.prose p + p{margin-top:14px}
+.prose strong{font-weight:600}
+.lead{font-family:"Newsreader",Georgia,serif;font-size:22px;line-height:1.45;color:var(--ink);max-width:760px}
+
+
+/* Sample blocks */
+.howto{
+  background:var(--teal-soft);border-left:4px solid var(--teal);padding:16px 20px;
+  max-width:760px;margin:22px 0 8px;font-size:16px;
+}
+.howto b{font-weight:600}
+.sample{background:var(--paper);border:1px solid var(--line);margin-top:28px}
+.sample-head{padding:22px 26px 6px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+.sample-head h3{font-size:24px}
+.sample-head .meta{color:var(--ink-2);font-size:15px}
+.sample-head details{flex-basis:100%;font-size:15px;margin-top:4px}
+.sample-head summary{cursor:pointer;color:var(--teal);font-weight:500;list-style:none;display:inline}
+.sample-head summary::-webkit-details-marker{display:none}
+.sample-head summary::after{content:" (show)"}
+.sample-head details[open] summary::after{content:" (hide)"}
+.sample-head details p{
+  margin-top:10px;font-family:"Newsreader",Georgia,serif;font-size:16.5px;line-height:1.55;
+  color:var(--ink);max-height:230px;overflow:auto;padding:12px 16px;background:var(--bg);
+}
+
+/* The ruler: one seek control that drives every player in the block */
+.ruler{padding:14px 26px 8px}
+.ruler-label{font-size:14px;color:var(--ink-2);margin-bottom:8px}
+.track{position:relative;height:44px;border-top:1px solid var(--ink);margin:0 6px}
+.tick{
+  position:absolute;top:-1px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font:inherit;font-size:13px;
+}
+.tick::before{content:"";display:block;width:1px;height:10px;background:var(--ink)}
+.tick span{white-space:nowrap}
+.tick:hover span,.tick:focus-visible span{color:var(--teal);font-weight:600}
+.tick.end::before{width:2px}
+.playhead{
+  position:absolute;top:-6px;width:11px;height:11px;border-radius:50%;background:var(--gold);
+  transform:translateX(-50%);pointer-events:none;transition:left .25s linear;
+}
+@media (prefers-reduced-motion:reduce){.playhead{transition:none}}
+
+.rows{border-top:1px solid var(--line)}
+.row{
+  display:grid;grid-template-columns:220px 1fr;gap:6px 20px;align-items:center;
+  padding:9px 26px;border-top:1px solid var(--line);
+}
+.row:first-child{border-top:0}
+.row .name{font-weight:500;font-size:16px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;max-width:860px;margin-top:26px;font-size:15px}
+.legend div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.legend dt{font-weight:600}
+.legend dd{color:var(--ink-2);line-height:1.45}
+.legend .ours dt{color:var(--teal)}
+.legend .prompt dt{color:var(--gold)}
+@media (max-width:760px){.legend{grid-template-columns:1fr}}
+@media (max-width:480px){.legend div{grid-template-columns:1fr;gap:2px}}
+.row audio{width:100%;height:36px;display:block}
+.row.ours{background:var(--teal-soft)}
+.row.ours .name{color:var(--teal);font-weight:600}
+.row.prompt{background:var(--gold-soft)}
+.row.prompt .name{color:var(--gold)}
+@media (max-width:640px){
+  .row{grid-template-columns:1fr;padding:12px 16px}
+  .sample-head,.ruler{padding-left:16px;padding-right:16px}
+  .tick span{font-size:12px}
+}
+
+footer{padding:36px 24px 60px;color:var(--ink-2);font-size:14px;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head">
+    <h1>Speaking Longer Than Learned
+      <span class="sub">Training-Free Long-Form Generation for Full-Stream Text-to-Speech</span>
+    </h1>
+    <div class="authors">
+      Jeseung Lim<sup>1</sup>, Jiseong Woo<sup>2</sup>, Heeseung Kim<sup>2,&dagger;</sup>
+      <div class="affil"><sup>1</sup>Department of Physics, University of Seoul, Seoul, Republic of Korea<br><sup>2</sup>Department of AI, University of Seoul, Seoul, Republic of Korea</div>
+      <div class="affil"><sup>&dagger;</sup>Corresponding author</div>
+    </div>
+    <div class="links">
+      <a class="muted" href="#" aria-disabled="true">
+        <svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h8"/></svg>Paper (coming soon)</a>
+      <a class="muted" href="#" aria-disabled="true">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>arXiv (coming soon)</a>
+      <a href="#samples">
+        <svg viewBox="0 0 24 24"><path d="M3 12h3l3-8 4 16 3-8h5"/></svg>Audio samples</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <h2>Abstract</h2>
+    <div class="prose">
+      <p>Recent full-stream text-to-speech (TTS) models enable low-latency personalized synthesis as input text arrives. However, sustaining generation beyond the training length without additional training remains largely unexplored. We systematically analyze VoXtream2, which extends generation by periodically discarding past context while retaining the acoustic prompt. We find that this strategy does not prevent degradation: pronunciation accuracy deteriorates near the end of the training range due to the positions at which the model operates rather than the loss of past context, while speaker similarity gradually declines throughout generation. Based on these findings, we propose two training-free modifications that reduce the attention window and strengthen attention to the acoustic prompt. Experiments show that these modifications preserve pronunciation accuracy and speaker similarity throughout long-form generation while retaining the naturalness of the original model. Ablations further show complementary effects of the two modifications.</p>
+    </div>
+  </div>
+</section>
+
+<section id="samples">
+  <div class="wrap">
+    <h2>Four-minute listening tests</h2>
+    <p class="lead">Each sample is a single LibriSpeech-Long passage of roughly four minutes, synthesized in one continuous run from a short acoustic prompt. All systems receive the same prompt and the same text.</p>
+    <div class="howto">
+      <b>How to listen.</b> Degradation appears late, so do not stop at the first ten seconds. The ruler above each sample moves every player in that block to the same point in the utterance. Jump to 2:00 or 3:00 and compare how VoXtream2 and our modified model pronounce the text and how close each stays to the prompt voice.
+    </div>
+    <dl class="legend" id="legend"></dl>
+    <div id="sample-list"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>Audio prompts and target texts come from LibriSpeech-Long. Baseline outputs are generated with the publicly released models.</footer>
+
+<script>
+const SAMPLES = [{"id": "1272-135031-0001", "words": 558, "gt": 226, "prompt": 9, "text": "We all wish him joy, said Polychrome, and then the others made haste to congratulate the new King. Will you release my dear brother? asked Shaggy. The Ugly One? Very willingly, replied Kaliko. I begged Ruggedo long ago to send him away, but he would not do so. I also offered to help your brother to escape, but he would not go. He's so conscientious! said Shaggy, highly pleased. All of our family have noble natures. But is my dear brother well? he added anxiously. He eats and sleeps very steadily, replied the new King. I hope he doesn't work too hard, said Shaggy. He doesn't work at all. In fact, there is nothing he can do in these dominions as well as our nomes, whose numbers are so great that it worries us to keep them all busy. So your brother has only to amuse himself. Why, it's more like visiting, than being a prisoner, asserted Betsy. Not exactly, returned Kaliko. A prisoner cannot go where or when he pleases, and is not his own master. Where is my brother now? inquired Shaggy. In the Metal Forest. Where is that? The Metal Forest is in the Great Domed Cavern, the largest in all our dominions, replied Kaliko. It is almost like being out of doors, it is so big, and Ruggedo made the wonderful forest to amuse himself, as well as to tire out his hard working nomes. All the trees are gold and silver and the ground is strewn with precious stones, so it is a sort of treasury. Let us go there at once and rescue my dear brother, pleaded Shaggy earnestly. Kaliko hesitated. I don't believe I can find the way, said he. Ruggedo made three secret passages to the Metal Forest, but he changes the location of these passages every week, so that no one can get to the Metal Forest without his permission. However, if we look sharp, we may be able to discover one of these secret ways. I'm sure I can't say, replied Kaliko. Do you suppose Ruggedo destroyed them? Oh, no, I'm quite sure he didn't. That's funny, remarked Betsy thoughtfully. I don't believe Ann knew any magic, or she'd have worked it before. But to disappear like that seems like magic, now, doesn't it? They agreed that it did, but no one could explain the mystery. And the important thing just now is to rescue my dear brother from captivity. Why do they call him the Ugly One? asked Betsy. I do not know, confessed Shaggy. I Can Not remember his looks very well, it is so long since I have seen him, but all of our family are noted for their handsome faces. Betsy laughed and Shaggy seemed rather hurt, but Polychrome relieved his embarrassment by saying softly, One can be ugly in looks, but lovely in disposition. Our first task, said Shaggy, a little comforted by this remark, is to find one of those secret passages to the Metal Forest. True, agreed Kaliko. So I think I will assemble the chief nomes of my kingdom in this throne room and tell them that I am their new King. Then I can ask them to assist us in searching for the secret passages. That's a good idea, said the dragon, who seemed to be getting sleepy again."}, {"id": "1988-147956-0001", "words": 627, "gt": 226, "prompt": 9, "text": "and examined the pies with lively curiosity, exclaiming, Much good, much thank! and again she wrung grandmother's hand. He was nineteen years old, short and broad backed, with a close cropped, flat head, and a wide, flat face. His hazel eyes were little and shrewd, like his mother's, but more sly and suspicious, they fairly snapped at the food. The family had been living on corncakes and sorghum molasses for three days. The little girl was pretty, but An tonia, they accented the name thus, strongly, when they spoke to her, was still prettier. I remembered what the conductor had said about her eyes. They were big and warm and full of light, like the sun shining on brown pools in the wood. Her skin was brown, too, and in her cheeks she had a glow of rich, dark color. Her brown hair was curly and wild looking. With him was another Shimerda son. Even from a distance one could see that there was something strange about this boy. He was born like that. The others are smart. Ambrosch, he make good farmer. He struck Ambrosch on the back, and the boy smiled knowingly. At that moment the father came out of the hole in the bank. He wore no hat, and his thick, iron gray hair was brushed straight back from his forehead. It was so long that it bushed out behind his ears, and made him look like the old portraits I remembered in Virginia. He was tall and slender, and his thin shoulders stooped. He looked at us understandingly, then took grandmother's hand and bent over it. I noticed how white and well shaped his own hands were. They looked calm, somehow, and skilled. His eyes were melancholy, and were set back deep under his brow. His face was ruggedly formed, but it looked like ashes, like something from which all the warmth and light had died out. In a moment we were running up the steep drawside together, Yulka trotting after us. We stood panting on the edge of the ravine, looking down at the trees and bushes that grew below us. The wind was so strong that I had to hold my hat on, and the girls skirts were blown out before them. She looked at me, her eyes fairly blazing with things she could not say. Name? What name? she asked, touching me on the shoulder. I told her my name, and she repeated it after me and made Yulka say it. She pointed into the gold cottonwood tree behind whose top we stood and said again, What name. Yulka curled up like a baby rabbit and played with a grasshopper. Antonia pointed up to the sky and questioned me with her glance. I told her, and she repeated the word, making it sound like ice. She got up on her knees and wrung her hands. She pointed to her own eyes and shook her head, then to mine and to the sky, nodding violently. Oh, I exclaimed, blue, blue sky. She clapped her hands and murmured, Blue sky, blue eyes, as if it amused her. While we snuggled down there out of the wind she learned a score of words. She was quick, and very eager. We were so deep in the grass that we could see nothing but the blue sky over us and the gold tree in front of us. It was wonderfully pleasant. After Antonia had said the new words over and over, she wanted to give me a little chased silver ring she wore on her middle finger. Antonia reached him first, took his hand and kissed it. When I came up, he touched my shoulder and looked searchingly down into my face for several seconds."}, {"id": "422-122949-0003", "words": 579, "gt": 220, "prompt": 9, "text": "but rather as something that may have its basis in the primary law of things, if he sought a designation for it he would say, It is justice itself. The noble soul gives as he takes, prompted by the passionate and sensitive instinct of requital, which is at the root of his nature. On this account the people of one nation understand one another better than those belonging to different nations, even when they use the same language, or rather, when people have lived long together under similar conditions of climate, soil, danger, requirement, toil there Originates therefrom an entity that understands itself, namely, a nation. The greater the danger, the greater is the need of agreeing quickly and readily about what is necessary, not to misunderstand one another in danger, that is what cannot at all be dispensed with in intercourse. Also in all loves and friendships one has the experience that nothing of the kind continues when the discovery has been made that in using the same words, one of the two parties has feelings, thoughts, intuitions, wishes, or fears different from those of the other. Whichever groups of sensations within a soul awaken most readily, begin to speak, and give the word of command, these decide as to the general order of rank of its values, and determine ultimately its list of desirable things. A man's estimates of value betray something of the Structure of his soul, and wherein it sees its conditions of life, its intrinsic needs. Profound suffering makes noble, it separates. One of the most refined forms of disguise is Epicurism, along with a certain ostentatious boldness of taste, which takes suffering lightly, and puts itself on the defensive against all that is sorrowful and profound. They are gay men who make use of gaiety, because they are misunderstood on account of it, they Wish to be misunderstood. The highest instinct for purity places him who is affected with it in the most extraordinary and dangerous isolation, as a saint, for it is just holiness, the highest spiritualization of the instinct in question. Occasionally, too, the waking call comes too late, the chance which gives permission to take action, when their best youth, and strength for action have been used up in sitting still, and how many a one, just as he sprang up, has found with horror that his limbs are benumbed and his spirits are now too heavy. Rest thee here, this place has hospitality for every one, refresh thyself! And whoever thou art, what is it that now pleases thee? What will serve to refresh thee? Only name it, whatever I have I offer thee! To refresh me? To refresh me. Does he not, go back? Yes! But you misunderstand him when you complain about it. Will people believe it of me. There must be a sort of repugnance in me to Believe anything definite about myself. Is there perhaps some enigma therein? Probably, but fortunately nothing for my own teeth. Perhaps it betrays the species to which I belong? but not to myself, as is sufficiently agreeable to me. But what has happened to you? I do not know, he said, hesitatingly, perhaps the Harpies have flown over my table. It sometimes happens nowadays that a gentle, sober, retiring man becomes suddenly mad, breaks the plates, upsets the table, shrieks, raves, and shocks everybody, and finally withdraws, ashamed, and raging at himself, whither? for what purpose? To famish apart?"}, {"id": "6241-61946-0000", "words": 754, "gt": 233, "prompt": 5, "text": "We had neither to fear fatiguing heat nor drenching rain. It was, in fact, real tourist weather. As there was nothing I liked better than horse exercise, the pleasure of riding through an unknown country caused the early part of our enterprise to be particularly agreeable to me. I began to enjoy the exhilarating delight of traveling, a life of desire, gratification and liberty. All, then, that may be required of me I will do cheerfully, and will create no difficulty. It was just before we left Reykjavik that I came to this decision. Hans, our extraordinary guide, went first, walking with a steady, rapid, unvarying step. Our two horses with the luggage followed of their own accord, without requiring whip or spur. My uncle and I came behind, cutting a very tolerable figure upon our small but vigorous animals. Iceland is one of the largest islands in Europe. It contains thirty thousand square miles of surface, and has about seventy thousand inhabitants. Geographers have divided it into four parts, and we had to cross the southwest quarter which in the vernacular is called Sudvestr Fjordungr. Hans, on taking his departure from Reykjavik, had followed the line of the sea. We took our way through poor and sparse meadows, which made a desperate effort every year to show a little green. They very rarely succeed in a good show of yellow. The rugged summits of the rocky hills were dimly visible on the edge of the horizon, through the misty fogs, every now and then some heavy flakes of snow showed conspicuous in the morning light, while certain lofty and pointed rocks were first lost in the grey low clouds, their summits clearly visible above, like jagged reefs rising from a troublous sea. Every now and then a spur of rock came down through the arid ground, leaving us scarcely room to pass. My uncle had not even the satisfaction of urging forward his steed by whip, spur, or voice. It was utterly useless to show any signs of impatience. I could not help smiling to see him look so big on his little horse, his long legs now and then touching the ground made him look like a six footed centaur. Good beast, good beast, he would cry. I assure you, that I begin to think no animal is more intelligent than an Icelandic horse. Snow, tempest, impracticable roads, rocks, icebergs, nothing stops him. He is brave, he is sober, he is safe, he never makes a false step, never glides or slips from his path. I dare to say that if any river, any fjord has to be crossed, and I have no doubt there will be many, you will see him enter the water without hesitation like an amphibious animal, and reach the opposite side in safety. We must not, however, attempt to hurry him, we must allow him to have his own way, and I will undertake to say that between us we shall do our ten leagues a day. We may do so, was my reply, but what about our worthy guide. He moves so little that it is impossible for him to become fatigued. Besides, if he were to complain of weariness, he could have the loan of my horse. I should have a violent attack of the cramp if I were not to have some sort of exercise. My arms are right, but my legs are getting a little stiff. All this while we were advancing at a rapid pace. The country we had reached was already nearly a desert. Here and there could be seen an isolated farm, some solitary bur, or Icelandic house, built of wood, earth, fragments of lava, looking like beggars on the highway of life. These wretched and miserable huts excited in us such pity that we felt half disposed to leave alms at every door. What, then, must be the state of the less known and more distant parts of the island. A few stray cows and sheep were only seen occasionally. We were to learn this all in good time. Little did I expect, however, the spectacle which awaited us when we reached the peninsula of Sneffels, where agglomerations of nature's ruins form a kind of terrible chaos. Some two hours or more after we had left the city of Reykjavik, we reached the little town called Aoalkirkja, or the principal church. It consists simply of a few houses, not what in England or Germany we should call a hamlet."}, {"id": "652-129742-0000", "words": 603, "gt": 230, "prompt": 6, "text": "Serve with French dressing or sprinkle lightly with a little oil dressing, let stand a half hour and serve with mayonnaise or boiled dressing as any one of the three distinct kinds is appropriate with this salad. Beet Salad, Bake the beets until tender, remove the skins and place them in the ice box to chill. Shred a white cabbage finely and sprinkle well with salt and use lettuce leaves to line the salad bowl. Slice the beets, place them on the lettuce, spread with a layer of cabbage, garnish with sliced beets cut in points and dress with mayonnaise or boiled dressing. Birds Nest Salad, Have ready as many crisp leaves of lettuce as may be required to make a dainty little nest for each person. Curl them into shape and in each one place tiny speckled eggs made by rolling cream cheese into shape, then sprinkle with fine chopped parsley. Serve with French dressing hidden under the leaves of the nest. Cabbage Salad, Chop or shave fine, half a medium size head of cabbage that has been left in cold water until crisp, then drain. Season with salt and pepper, then pour over it a dressing made this way, Beat the yolks of two eggs, add two tablespoons of melted butter and beat again. Add two tablespoons thick sour cream, two tablespoons sugar, a sprinkle of mustard and half cup of vinegar. Beat until thoroughly mixed, pour over the cabbage and toss lightly until uniformly seasoned. Cauliflower Mayonnaise, Take cold boiled cauliflower, break into branches, adding salt, pepper and vinegar to season. Heap on a platter, making the flowers come to a point at the top. Surround with a garnish of cooked and diced carrots, turnips, green peas. Pour mayonnaise over all, chill and serve. Another garnish for cauliflower is pickled beets. Celery And Nut Salad, Cut enough celery fine to measure two cups, add one cup of finely shredded or shaved cabbage and one and one half cups of walnut meats, broken in small pieces, but not chopped. Mix and moisten on a serving dish and garnish with celery tips. Creole Salad, Half cup of olive oil, five tablespoons of vinegar, half teaspoon of powdered sugar, one teaspoon salt, two tablespoons chopped red pepper, three tablespoons chopped green peppers, half Bermuda onion, parsley and lettuce and serve. Fish Salad, Remove skin and bones and flake cold cooked fish. Sprinkle with salt and pepper and add a few drops of lemon juice. Arrange on a bed of shredded lettuce in the shape of a fish. Cover with mayonnaise or cream dressing and garnish with hard boiled eggs and parsley. Jellied Cucumber, Pare and slice cucumbers and cook in water to cover until tender. Drain, season with salt, a few grains of cayenne, and to one cup of the cooked cucumber add a level teaspoon of gelatin dissolved in a spoonful of cold water. Stir the soaked gelatin in while the cucumber is hot. Set into a cold place to chill and become firm. If a large mold is used break up roughly into pieces, if small molds are taken then unmold onto lettuce leaves and serve with mayonnaise. Nut And Celery Salad, Cover one cup of walnut meats and two slices of onion with boiling water, to which is added a teaspoon of salt. Cook half an hour, drain, turn into ice cold water for ten minutes, then rub off the brown skin. Add the nuts broken in small pieces to two cups of celery cut in small pieces crosswise. Use only the white inner stalks, serve with a cream dressing."}];
+const SYSTEMS = [{"key": "prompt", "name": "Acoustic prompt", "desc": "The short reference clip given to every zero-shot system. Its speaker identity should be preserved for the whole four minutes."}, {"key": "gt", "name": "Ground truth", "desc": "The original LibriSpeech-Long recording of the target text."}, {"key": "mimi", "name": "Mimi resynthesis", "desc": "Ground truth passed through the Mimi codec. This is the quality ceiling for codec-based models."}, {"key": "qwen", "name": "Qwen3-TTS-12Hz-1.7B-Base", "desc": "Non-streaming baseline."}, {"key": "moss", "name": "MOSS-TTS-v1.5", "desc": "Non-streaming baseline."}, {"key": "voxtream2", "name": "VoXtream2", "desc": "Full-stream baseline that periodically discards past context while keeping the acoustic prompt."}, {"key": "ours", "name": "VoXtream2 + ours", "desc": "VoXtream2 with the two training-free modifications: a reduced attention window and strengthened attention to the acoustic prompt."}];
+const AUDIO_EXT = "mp3";
+
+function fmt(s){ const m = Math.floor(s/60), r = Math.round(s%60); return m + ":" + String(r).padStart(2,"0"); }
+
+document.getElementById("legend").innerHTML = SYSTEMS.map(sys =>
+  `<div class="${sys.key}"><dt>${sys.name}</dt><dd>${sys.desc}</dd></div>`).join("");
+
+const list = document.getElementById("sample-list");
+SAMPLES.forEach((smp, i) => {
+  const block = document.createElement("article");
+  block.className = "sample";
+  block.dataset.id = smp.id;
+
+  const preview = smp.text.split(" ").slice(0, 34).join(" ");
+  const head = `
+    <div class="sample-head">
+      <h3>Sample ${i+1}</h3>
+      <span class="meta">LibriSpeech-Long ${smp.id}, ${smp.words} words, prompt ${smp.prompt}s, reference ${fmt(smp.gt)}</span>
+      <details>
+        <summary>Target text</summary>
+        <p>${smp.text}</p>
+      </details>
+    </div>`;
+
+  const marks = [0, 60, 120, 180];
+  const endT = smp.gt;
+  const ticks = marks.map(t => `<button class="tick" style="left:${(t/endT*100).toFixed(2)}%" data-t="${t}"><span>${fmt(t)}</span></button>`).join("")
+    + `<button class="tick end" style="left:100%" data-t="end"><span>end</span></button>`;
+  const ruler = `
+    <div class="ruler">
+      <div class="ruler-label">Move every player below to</div>
+      <div class="track">${ticks}<div class="playhead" style="left:0%"></div></div>
+    </div>`;
+
+  const rows = SYSTEMS.map(sys => `
+    <div class="row ${sys.key}">
+      <div class="name">${sys.name}</div>
+      <audio controls preload="metadata" src="static/audio/${sys.key}/${smp.id}.${AUDIO_EXT}" data-sys="${sys.key}"></audio>
+    </div>`).join("");
+
+  block.innerHTML = head + ruler + `<div class="rows">${rows}</div>`;
+  list.appendChild(block);
+
+  const audios = Array.from(block.querySelectorAll("audio"));
+  const long = audios.filter(a => a.dataset.sys !== "prompt");
+  const playhead = block.querySelector(".playhead");
+
+  block.querySelectorAll(".tick").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const v = btn.dataset.t;
+      long.forEach(a => {
+        const seek = () => {
+          const d = isFinite(a.duration) ? a.duration : endT;
+          a.currentTime = v === "end" ? Math.max(0, d - 20) : Math.min(+v, d - 0.5);
+        };
+        if (a.readyState >= 1) seek(); else a.addEventListener("loadedmetadata", seek, { once: true });
+      });
+      playhead.style.left = (v === "end" ? 100 : (+v/endT*100)) + "%";
+    });
+  });
+
+  audios.forEach(a => {
+    a.addEventListener("play", () => {
+      document.querySelectorAll("audio").forEach(o => { if (o !== a) o.pause(); });
+    });
+    if (a.dataset.sys !== "prompt") {
+      a.addEventListener("timeupdate", () => {
+        if (a.paused) return;
+        const d = isFinite(a.duration) ? a.duration : endT;
+        playhead.style.left = Math.min(100, a.currentTime/d*100) + "%";
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
